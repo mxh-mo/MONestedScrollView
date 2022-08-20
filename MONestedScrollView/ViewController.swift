@@ -49,7 +49,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                                                    left: 0.0,
                                                    bottom: 0.0,
                                                    right: 0.0)
-        /// 高度根据偏移
+        /// 高度根据偏移算出
         let headerHeight = headerViewMinHeight + abs(mainScrollView.contentOffset.y)
         headerView.frame = CGRect(x: safeInset.left,
                                   y: safeInset.top,
