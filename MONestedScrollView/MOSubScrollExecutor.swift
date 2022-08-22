@@ -46,7 +46,7 @@ class MOSubScrollExecutor: NSObject {
     }
 
     public func subScrollDidScroll(_ scrollView: UIScrollView) {
-        /// 丢弃其他scrollView的回调(case: 刚拖拽完tabView，立马切换到webView，此时还会收到tabView的滑动回调)
+        /// 丢弃其他 scrollView 的回调(case: 刚拖拽完 tabView，立马切换到 webView，此时还会收到 tabView 的滑动回调)
         if !scrollView.isEqual(self.currentSubScrollView) {
             return
         }
@@ -67,23 +67,23 @@ class MOSubScrollExecutor: NSObject {
     func handlePullDown(_ scrollView: UIScrollView) {
         print("下拉 subScrollDidScroll: \(scrollView.contentOffset.y)")
         
-        /// 还没拉到顶 或 headerView已是最大状态，允许subScrollView滑动，不做处理
+        /// 还没拉到顶 或 headerView 已是最大状态，允许 subScrollView 滑动，不做处理
         if scrollView.contentOffset.y > 0 ||
             self.headerIsMaxState() {
             self.mainScrollEnable = false
             self.subScrollViewPreOffset = scrollView.contentOffset
         } else {
-            /// 拉到顶部了 且 播放器需要放大
-            print("拉到顶部了 & 播放器需要放大")
+            /// 拉到顶部了 且 headerView 需要放大
+            print("拉到顶部了 & headerView 需要放大")
             self.mainScrollEnable = true
             
-            /// 重置偏移(放大player时，不需要下拉刷新效果)
+            /// 重置偏移(放大 headerView 时，不需要下拉刷新效果)
             self.updateScrollView(scrollView, .zero)
             self.subScrollViewPreOffset = .zero
         }
     }
     
-    /// pullUp 上拉: 先缩小播放器，再拉 list
+    /// pullUp 上拉: 先缩小 headerView，再拉 list
     func handlePullUp(_ scrollView: UIScrollView) {
         print("上拉 subScrollDidScroll: \(scrollView.contentOffset.y)")
         
@@ -97,7 +97,7 @@ class MOSubScrollExecutor: NSObject {
         if scrollView.contentOffset.y <= 0 { /// 忽略下拉刷新的回弹(否则死循环)
             return
         }
-        print("heanderView缩小时，重置subScrollView偏移")
+        print("heanderView 缩小时，重置 subScrollView 偏移")
         self.updateScrollView(scrollView, self.subScrollViewPreOffset)
     }
 
